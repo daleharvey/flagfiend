@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+
+    <title>Flaq Fiend</title>
+
+    <link rel="stylesheet" href="/quiz.css">
+    <link rel="icon" href="flagfiend.svg" type="image/svg+xml">
+
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+      <div id="streak"></div>
+      <div id="flagDisplay"></div>
+      <form id="entryForm">
+        <input type="text" id="entryText" placeholder="Enter Country Name" />
+      </form>
+    </div>
+
+    <div class="dialog correct">
+      <section>
+        <span id="successMsg">✓ Correct! The capital of Montserrat is Plymouth.</span>
+        <button>Continue</button>
+      </section>
+    </div>
+
+    <div class="dialog false">
+      <section>
+        <span id="errMsg">✓ Correct! The capital of Montserrat is Plymouth.</span>
+        <button>Restart</button>
+      </section>
+    </div>
+
+  </body>
+
+  <script src="quiz.js"></script>
+
+</html>

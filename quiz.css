@@ -1,0 +1,87 @@
+* {
+  box-sizing: border-box;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+
+html {
+  font-size: 10px;
+  background: #EEE;
+}
+
+body, input, a, textarea {
+  font-size: 1.4rem;
+}
+
+#streak {
+  font-weight: bold;
+  text-align: center;
+  font-size: 6rem;
+  line-height: 6rem;
+}
+
+#flagDisplay {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  min-width: 200px;
+  min-height: 200px;
+  margin-bottom: 2rem;
+}
+
+#wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  font-size: 2rem;
+  line-height: 2.7rem;
+  border: 1px solid #CCC;
+}
+
+.dialog {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, .7);
+  padding: 2rem;
+}
+
+.dialog section {
+  margin: 2rem auto;
+  padding: 2rem;
+  max-width: 500px;
+  background: white;
+}
+
+.dialog span {
+  font-size: 1.8rem;
+}
+
+.dialog button {
+  display: block;
+  margin-top: 2rem;
+  width: 100%;
+  line-height: 5rem;
+  border: 0;
+  color: white;
+  font-weight: bold;
+  font-size: 2.6rem;
+  border-radius: 1rem;
+}
+
+.false button {
+  background: red;
+}
+
+.correct button {
+  background: green;
+}
