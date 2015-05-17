@@ -13,7 +13,7 @@ var entryForm = document.getElementById('entryForm');
 function go() {
   currentFlag = flags.shift();
   flagDisplay.style.backgroundImage =
-    'url(/data/' + currentFlag.cca3.toLowerCase() + '.svg)';
+    'url(./data/' + currentFlag.cca3.toLowerCase() + '.svg)';
 };
 
 function start() {
@@ -117,7 +117,7 @@ entryForm.addEventListener('submit', function(e) {
 
 
 
-getJSON('/countries.json').then(function(data) {
+getJSON('./countries.json').then(function(data) {
   FLAG_DATA = data;
   start();
 });
