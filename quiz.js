@@ -102,13 +102,13 @@ function showDialog(css, msg) {
 entryForm.addEventListener('submit', function(e) {
   e.preventDefault();
 
+  if (!entryText.value) {
+    return;
+  }
+
   var value = entryText.value;
   entryText.value = '';
   entryText.blur();
-
-  if (!value) {
-    return;
-  }
 
   var isRight = compare(value, currentFlag.name.common) ||
     compare(value, currentFlag.name.official);
