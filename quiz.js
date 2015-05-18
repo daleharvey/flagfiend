@@ -103,7 +103,7 @@ function showDialog(css, msg) {
 entryForm.addEventListener('submit', function(e) {
   e.preventDefault();
 
-  var value = entryText.value;
+  var value = entryText.value.trim();
   entryText.value = '';
   entryText.blur();
 
