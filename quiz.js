@@ -16,6 +16,7 @@ function go() {
   currentFlag = flags.shift();
   flagDisplay.style.backgroundImage =
     'url(./data/' + currentFlag.cca3.toLowerCase() + '.svg)';
+  entryText.focus();
 };
 
 function start() {
@@ -85,15 +86,16 @@ function shuffle(array) {
 function showDialog(css, msg) {
   return new Promise(function(resolve) {
     var dialog = document.querySelector(css);
-    var btn = dialog.querySelector('button');
+    var form = dialog.querySelector('form');
     var span = dialog.querySelector('span');
-    btn.addEventListener('click', function tmp() {
-      btn.removeEventListener('click', tmp);
+    form.addEventListener('submit', function tmp() {
+      form.removeEventListener('submit', tmp);
       dialog.style.display = 'none';
       resolve();
     });
     span.textContent = msg;
     dialog.style.display = 'block';
+    form.querySelector('input[type=submit]').focus();
   });
 }
 
@@ -102,6 +104,7 @@ entryForm.addEventListener('submit', function(e) {
 
   var value = entryText.value;
   entryText.value = '';
+  entryText.blur();
 
   if (!value) {
     return;
