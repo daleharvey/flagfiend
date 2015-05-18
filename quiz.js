@@ -5,7 +5,7 @@ var FLAG_DATA;
 var currentFlag;
 var streak;
 var flags;
-var recordStreak = parseInt(localStorage['record'], 10) || 0;
+var recordStreak = parseInt(localStorage.record, 10) || 0;
 
 var recordStreakDisplay = document.getElementById('recordStreak');
 var streakDisplay = document.getElementById('streak');
@@ -21,6 +21,7 @@ function go() {
 function start() {
   streak = 0;
   streakDisplay.textContent = streak;
+  recordStreakDisplay.textContent = recordStreak;
   flags = shuffle(JSON.parse(JSON.stringify(FLAG_DATA)));
   go();
 };
