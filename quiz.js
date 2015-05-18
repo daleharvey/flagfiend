@@ -13,7 +13,13 @@ var flagDisplay = document.getElementById('flagDisplay');
 var entryForm = document.getElementById('entryForm');
 
 function go() {
+  if (!flags.length) { // Nobody is that smart
+    return start();
+  }
   currentFlag = flags.shift();
+  if (currentFlag.hidden) {
+    return go();
+  }
   flagDisplay.style.backgroundImage =
     'url(./data/' + currentFlag.cca3.toLowerCase() + '.svg)';
   entryText.focus();

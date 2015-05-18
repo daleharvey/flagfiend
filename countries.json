@@ -1613,7 +1613,8 @@
 		"borders": ["CHN", "IND"],
 		"area": 38394
 	},
-	{
+        {
+          "hidden": true,
 		"name": {
 			"common": "Bouvet Island",
 			"official": "Bouvet Island",
@@ -10670,7 +10671,8 @@
 		"borders": ["BLR", "HUN", "MDA", "POL", "ROU", "RUS", "SVK"],
 		"area": 603500
 	},
-	{
+        {
+          "hidden": true,
 		"name": {
 			"common": "United States Minor Outlying Islands",
 			"official": "United States Minor Outlying Islands",
