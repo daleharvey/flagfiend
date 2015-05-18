@@ -88,7 +88,8 @@ function showDialog(css, msg) {
     var dialog = document.querySelector(css);
     var form = dialog.querySelector('form');
     var span = dialog.querySelector('span');
-    form.addEventListener('submit', function tmp() {
+    form.addEventListener('submit', function tmp(e) {
+      e.preventDefault();
       form.removeEventListener('submit', tmp);
       dialog.style.display = 'none';
       resolve();
