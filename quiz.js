@@ -103,6 +103,10 @@ entryForm.addEventListener('submit', function(e) {
   var value = entryText.value;
   entryText.value = '';
 
+  if (!value) {
+    return;
+  }
+
   var isRight = compare(value, currentFlag.name.common) ||
     compare(value, currentFlag.name.official);
 
