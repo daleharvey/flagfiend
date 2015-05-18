@@ -11,30 +11,39 @@
     <link rel="stylesheet" href="./quiz.css">
     <link rel="icon" href="flagfiend.svg" type="image/svg+xml">
 
-    <base href="/flagfiend/" />
-
   </head>
 
   <body>
 
+    <header>
+      <div id="headerWrapper">
+        <div id="recordStreak">0</div>
+        <div id="streak"></div>
+      </div>
+    </header>
+
     <div id="wrapper">
-      <div id="streak"></div>
+
       <div id="flagDisplay"></div>
+
       <form id="entryForm">
         <input type="text" id="entryText" placeholder="Enter Country Name" />
       </form>
+
     </div>
 
     <div class="dialog correct">
       <section>
-        <span id="successMsg">✓ Correct! The capital of Montserrat is Plymouth.</span>
+        <i class="mark">✓</i>
+        <span id="successMsg"></span>
         <button>Continue</button>
       </section>
     </div>
 
     <div class="dialog false">
       <section>
-        <span id="errMsg">✓ Correct! The capital of Montserrat is Plymouth.</span>
+        <i class="mark">✕</i>
+        <span id="errMsg"></span>
         <button>Restart</button>
       </section>
     </div>

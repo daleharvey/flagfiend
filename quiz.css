@@ -13,20 +13,42 @@ body, input, a, textarea {
   font-size: 1.4rem;
 }
 
-#streak {
-  font-weight: bold;
-  text-align: center;
-  font-size: 6rem;
-  line-height: 6rem;
+header div {
+  font-size: 2.8rem;
+  line-height: 4rem;
 }
+
+header {
+  /* background: #766DB0; */
+}
+
+#headerWrapper {
+  display: flex;
+  flex-direction: row;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+#headerWrapper > * {
+  flex-grow: 1;
+}
+
+#recordStreak {
+  color: #CCC;
+}
+#streak {
+  text-align: right;
+}
+
+#title { text-align: center; }
 
 #flagDisplay {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
-  min-width: 200px;
-  min-height: 200px;
-  margin-bottom: 2rem;
+  height: 20rem;
+  margin: 1rem 0;
 }
 
 #wrapper {
@@ -59,14 +81,14 @@ input {
   margin: 2rem auto;
   padding: 2rem;
   max-width: 500px;
-  background: white;
+  background: #EEE;
 }
 
 .dialog span {
   font-size: 1.8rem;
 }
 
-.dialog button {
+button {
   display: block;
   margin-top: 2rem;
   width: 100%;
@@ -83,5 +105,26 @@ input {
 }
 
 .correct button {
-  background: green;
+  background: #769C00;
+}
+
+.mark {
+  font-style: normal;
+  display: block;
+  height: 8rem;
+  width: 8rem;
+  border-radius: 8rem;
+  font-size: 2.5rem;
+  line-height: 8rem;
+  text-align: center;
+  background: white;
+  margin: -4rem auto 1rem auto;
+}
+
+.correct .mark {
+  color: #769C00;
+}
+
+.false .mark {
+  color: red;
 }

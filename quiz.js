@@ -5,7 +5,9 @@ var FLAG_DATA;
 var currentFlag;
 var streak;
 var flags;
+var recordStreak = parseInt(localStorage['record'], 10) || 0;
 
+var recordStreakDisplay = document.getElementById('recordStreak');
 var streakDisplay = document.getElementById('streak');
 var flagDisplay = document.getElementById('flagDisplay');
 var entryForm = document.getElementById('entryForm');
@@ -26,6 +28,10 @@ function start() {
 function right() {
   streak++;
   streakDisplay.textContent = streak;
+  if (streak > recordStreak) {
+    localStorage['record'] = recordStreak = streak;
+    recordStreakDisplay.textContent = recordStreak;
+  }
   go();
 };
 
@@ -78,7 +84,6 @@ function shuffle(array) {
 function showDialog(css, msg) {
   return new Promise(function(resolve) {
     var dialog = document.querySelector(css);
-    console.log(dialog);
     var btn = dialog.querySelector('button');
     var span = dialog.querySelector('span');
     btn.addEventListener('click', function tmp() {
@@ -102,9 +107,8 @@ entryForm.addEventListener('submit', function(e) {
 
   var dialogClass = isRight ? '.correct' : '.false';
   var msg = isRight ?
-    '✓ Correct! The capital of ' + currentFlag.name.common + ' is ' +
-    currentFlag.capital + '.' :
-    'False, the correct answer is ' + currentFlag.name.common;
+    'The capital of ' + currentFlag.name.common + ' is ' + currentFlag.capital + '.' :
+    'The correct answer is ' + currentFlag.name.common;
 
   showDialog(dialogClass, msg).then(function() {
     if (isRight) {
@@ -114,8 +118,6 @@ entryForm.addEventListener('submit', function(e) {
     }
   });
 });
-
-
 
 getJSON('./countries.json').then(function(data) {
   FLAG_DATA = data;
