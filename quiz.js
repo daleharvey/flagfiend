@@ -6,33 +6,26 @@ var currentFlag;
 var streak;
 var flags;
 var recordStreak = parseInt(localStorage.record, 10) || 0;
+
 var waitingForAnswer = false;
+var RESULT_PAUSE = 1500;
 
-var flagDisplay = document.getElementById('flagDisplay');
-var entryForm = document.getElementById('entryForm');
+function startGame() {
+  streak = 0;
+  currentFlag = null;
+  flags = shuffle(JSON.parse(JSON.stringify(FLAG_DATA)));
+  startTurn();
+};
 
-function go() {
+function startTurn() {
 
   currentFlag = flags.shift();
-  if (currentFlag.hidden) {
-    return go();
-  }
 
-  flagDisplay.style.backgroundImage =
+  document.getElementById('flagDisplay').style.backgroundImage =
     'url(./data/' + currentFlag.cca3.toLowerCase() + '.svg)';
 
   entryText.focus();
   waitingForAnswer = true;
-};
-
-function start() {
-  streak = 0;
-  currentFlag = null;
-  flags = shuffle(JSON.parse(JSON.stringify(FLAG_DATA)));
-  go();
-};
-
-function right() {
 };
 
 function getJSON(url) {
@@ -88,15 +81,36 @@ function showDialog(css, msg) {
     setTimeout(function() {
       dialog.style.display = 'none';
       resolve();
-    }, 1500);
+    }, RESULT_PAUSE);
   });
 }
 
-function successMsg() {
-  return 'Correct! The capital of ' + currentFlag.name.common + ' is ' +
-    currentFlag.capital + '.<br /<br /><br />' +
-    'Current: ' + streak + '<br />' +
-    'Record: ' + recordStreak;
+function checkAnswer(answer, currentFlag) {
+
+  var correct = compare(answer, currentFlag.name.common) ||
+    compare(answer, currentFlag.name.official);
+
+  if (!correct) {
+    return {
+      fun: startGame,
+      dialogClass: '.false',
+      msg: 'The correct answer is ' + currentFlag.name.common
+    }
+  }
+
+  streak++;
+  if (streak > recordStreak) {
+    localStorage['record'] = recordStreak = streak;
+  }
+
+  return {
+    fun: startTurn,
+    dialogClass: '.correct',
+    msg: 'Correct! The capital of ' + currentFlag.name.common + ' is ' +
+      currentFlag.capital + '.<br /<br /><br />' +
+      'Current: ' + streak + '<br />' +
+      'Record: ' + recordStreak
+  };
 }
 
 function submit(e) {
@@ -114,28 +128,16 @@ function submit(e) {
   var value = entryText.value.trim();
   entryText.value = '';
 
-  var isRight = compare(value, currentFlag.name.common) ||
-    compare(value, currentFlag.name.official);
-
-  if (isRight) {
-    streak++;
-    if (streak > recordStreak) {
-      localStorage['record'] = recordStreak = streak;
-    }
-  }
-
-  var dialogClass = isRight ? '.correct' : '.false';
-  var msg = isRight ? successMsg() :
-    'The correct answer is ' + currentFlag.name.common;
-
-  showDialog(dialogClass, msg).then(function() {
-    isRight ? go() : start();
-  });
+  var check = checkAnswer(value, currentFlag);
+  showDialog(check.dialogClass, check.msg).then(check.fun);
 }
 
-entryForm.addEventListener('submit', submit);
+// Start listening straight away so we can avoid page refreshes
+// when accidently submitting form
+document.getElementById('entryForm').addEventListener('submit', submit);
 
 getJSON('./countries.json').then(function(data) {
-  FLAG_DATA = data;
-  start();
+  // Should probably preprocess the json to do this
+  FLAG_DATA = data.filter(function(flag) { return !flag.hidden; });
+  startGame();
 });
