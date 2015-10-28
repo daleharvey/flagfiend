@@ -13,48 +13,30 @@ body, input, a, textarea {
   font-size: 1.4rem;
 }
 
+html, body {
+  height: 100%;
+}
+
 header div {
   font-size: 2.8rem;
   line-height: 4rem;
 }
 
-header {
-  /* background: #766DB0; */
-}
-
-#headerWrapper {
+#wrapper {
+  height: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   max-width: 500px;
+  max-height: 500px;
   margin: 0 auto;
-  padding: 0 2rem;
 }
-
-#headerWrapper > * {
-  flex-grow: 1;
-}
-
-#recordStreak {
-  color: #CCC;
-}
-#streak {
-  text-align: right;
-}
-
-#title { text-align: center; }
 
 #flagDisplay {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
-  height: 20rem;
-  margin: 1rem 0;
-}
-
-#wrapper {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 0 2rem;
+  flex-grow: 1;
+  margin: 1rem;
 }
 
 input {
@@ -63,7 +45,8 @@ input {
   padding: 1rem;
   font-size: 2rem;
   line-height: 2.7rem;
-  border: 1px solid #CCC;
+  border: 0;
+  border-top: 1px solid #CCC;
 }
 
 .dialog {
@@ -86,26 +69,6 @@ input {
 
 .dialog span {
   font-size: 1.8rem;
-}
-
-input[type=submit] {
-  display: block;
-  margin-top: 2rem;
-  width: 100%;
-  line-height: 5rem;
-  border: 0;
-  color: white;
-  font-size: 2.6rem;
-  border-radius: 1rem;
-  padding: 0;
-}
-
-.false input[type=submit] {
-  background: red;
-}
-
-.correct input[type=submit] {
-  background: #769C00;
 }
 
 .mark {

@@ -6,46 +6,33 @@ var currentFlag;
 var streak;
 var flags;
 var recordStreak = parseInt(localStorage.record, 10) || 0;
+var waitingForAnswer = false;
 
-var recordStreakDisplay = document.getElementById('recordStreak');
-var streakDisplay = document.getElementById('streak');
 var flagDisplay = document.getElementById('flagDisplay');
 var entryForm = document.getElementById('entryForm');
 
 function go() {
-  if (!flags.length) { // Nobody is that smart
-    return start();
-  }
+
   currentFlag = flags.shift();
   if (currentFlag.hidden) {
     return go();
   }
+
   flagDisplay.style.backgroundImage =
     'url(./data/' + currentFlag.cca3.toLowerCase() + '.svg)';
+
   entryText.focus();
+  waitingForAnswer = true;
 };
 
 function start() {
   streak = 0;
-  streakDisplay.textContent = streak;
-  recordStreakDisplay.textContent = recordStreak;
+  currentFlag = null;
   flags = shuffle(JSON.parse(JSON.stringify(FLAG_DATA)));
   go();
 };
 
 function right() {
-  streak++;
-  streakDisplay.textContent = streak;
-  if (streak > recordStreak) {
-    localStorage['record'] = recordStreak = streak;
-    recordStreakDisplay.textContent = recordStreak;
-  }
-  go();
-};
-
-function wrong() {
-  currentFlag = null;
-  start();
 };
 
 function getJSON(url) {
@@ -94,41 +81,59 @@ function showDialog(css, msg) {
     var dialog = document.querySelector(css);
     var form = dialog.querySelector('form');
     var span = dialog.querySelector('span');
-    form.addEventListener('submit', function tmp(e) {
-      e.preventDefault();
-      form.removeEventListener('submit', tmp);
+
+    span.innerHTML = msg;
+    dialog.style.display = 'block';
+
+    setTimeout(function() {
       dialog.style.display = 'none';
       resolve();
-    });
-    span.textContent = msg;
-    dialog.style.display = 'block';
-    form.querySelector('input[type=submit]').focus();
+    }, 1500);
   });
 }
 
-entryForm.addEventListener('submit', function(e) {
+function successMsg() {
+  return 'Correct! The capital of ' + currentFlag.name.common + ' is ' +
+    currentFlag.capital + '.<br /<br /><br />' +
+    'Current: ' + streak + '<br />' +
+    'Record: ' + recordStreak;
+}
+
+function submit(e) {
+
   e.preventDefault();
+
+  // Little nasty, when we are showing the results we want to not
+  // lets the use accidently submit (by pressing return twice).
+  // We dont want to ignore blank submissions (they are 'I dont know')
+  // and we cant stop listening for form submissions since then
+  // the form will submit (and page reload)
+  if (!waitingForAnswer) { return; }
+  waitingForAnswer = false;
 
   var value = entryText.value.trim();
   entryText.value = '';
-  entryText.blur();
 
   var isRight = compare(value, currentFlag.name.common) ||
     compare(value, currentFlag.name.official);
 
+  if (isRight) {
+    streak++;
+    if (streak > recordStreak) {
+      localStorage['record'] = recordStreak = streak;
+    }
+  }
+
   var dialogClass = isRight ? '.correct' : '.false';
-  var msg = isRight ?
-    'The capital of ' + currentFlag.name.common + ' is ' + currentFlag.capital + '.' :
+  var msg = isRight ? successMsg() :
     'The correct answer is ' + currentFlag.name.common;
 
   showDialog(dialogClass, msg).then(function() {
-    if (isRight) {
-      right();
-    } else {
-      wrong();
-    }
+    isRight ? go() : start();
   });
-});
+}
+
+entryForm.addEventListener('submit', submit);
 
 getJSON('./countries.json').then(function(data) {
   FLAG_DATA = data;
