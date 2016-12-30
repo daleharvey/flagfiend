@@ -1,0 +1,10 @@
+{
+  "name": "FlagFiend",
+  "short_name": "FlagFiend",
+  "start_url": ".",
+  "display": "standalone",
+  "icons": [{
+    "src": "/flagfiend/flagfiend.svg",
+    "type": "image/svg"
+  }]
+}
