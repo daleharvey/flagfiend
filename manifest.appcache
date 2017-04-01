@@ -1,8 +1,9 @@
 CACHE MANIFEST
-# Mon May 18 2015 10:31:59 GMT+0100 (BST) v2
+# Mon May 18 2015 10:31:59 GMT+0100 (BST) v3
 
 /flagfiend/countries.json
 /flagfiend/flagfiend.svg
+/flagfiend/flagfiend.png
 /flagfiend/index.html
 /flagfiend/
 /flagfiend/manifest.appcache
