@@ -3,8 +3,10 @@
   "short_name": "FlagFiend",
   "start_url": ".",
   "display": "standalone",
+  "theme_color": "#66159B",
   "icons": [{
-    "src": "/flagfiend/flagfiend.svg",
-    "type": "image/svg"
+    "src": "flagfiend.png",
+    "type": "image/png",
+    "sizes": 300x300"
   }]
 }

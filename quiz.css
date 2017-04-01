@@ -6,7 +6,7 @@
 
 html {
   font-size: 10px;
-  background: #EEE;
+  background: #66159B;
 }
 
 body, input, a, textarea {
@@ -46,7 +46,8 @@ input {
   font-size: 2rem;
   line-height: 2.7rem;
   border: 0;
-  border-top: 1px solid #CCC;
+  background: #00000099;
+  color: #DDD;
 }
 
 .dialog {
